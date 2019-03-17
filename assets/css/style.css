@@ -1,0 +1,92 @@
+/* Container holding the image and the text */
+.container {
+    position: fixed;
+    text-align: center;
+    font-family: cursive;
+    color: black ;
+    height: 100%;
+    width: 100%;
+    padding-left: 0%;
+    padding-right: 0%;
+  }
+  
+  /* Bottom left text */
+  .bottom-left {
+    position: absolute;
+    bottom: 30px;
+    left: 29px;
+  }
+   
+  /* Top right text */
+  .top {
+    position: absolute;
+    text-align: center;
+    top: 8px;
+    right: 16px;
+    left: 16px;
+  }
+  
+  /* Bottom right text */
+  .bottom-right {
+    position: absolute;
+    bottom: 30px;
+    right: 69px;
+  }
+  
+  /* Centered text */
+  .centered {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20PX;
+  }
+
+
+body, html {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	  color: mistyrose;
+    height: 100%;
+    margin: 0;
+  }
+
+
+h2{
+	font-family: cursive ;
+  color: black;
+  font-size: 15PX;
+}
+
+#currentWord, #guessesLeft, #lettersGuessed, #wins, #losses{
+  font-size: 20px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.left{
+	background-color: transparent;
+	border-radius: 6px;
+}
+
+.right{
+	padding-right: 0;
+}
+
+.row{
+	border-radius: 6px;
+}
+
+
+.row.match-my-cols {
+    overflow: hidden; 
+}
+
+.row.match-my-cols [class*="col-"]{
+    margin-bottom: -99999px;
+    padding-bottom: 99999px; 
+
+}
+ h1 small{
+    font-weight: 400;
+    line-height: 1;
+    color: seashell;
+}
