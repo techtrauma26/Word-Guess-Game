@@ -1,6 +1,7 @@
 var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-var breeds = ["affenpinscher", "akita", "basenji", "beagle", "beauceron", "bloodhound", "borzoi", "boxer", "briard", "brittany", "bulldog", "bullmastiff", "chihuahua", "collie", "dachshund", "dalmatian", "greyhound", "havanese", "leonberger", "maltese", "mastiff", "newfoundland", "poodle", "pug", "retriever", "rottweiler", "saluki", "samoyed", "schipperke", "setter", "sloughi", "spaniel", "vizsla", "weimaraner", "whippet", "xoloitzcuintil"];
+var countries = ["Afghanistan", "Albania","Algeria","Argentina","Armenia","Bahamas","Bangladesh","Belgium","Brazil","Cambodia","Canada","Denmark","Ecuador","Egypt","Finland","France","Germany","Hungary","India","Iran","Japan","Kenya",
+"Laos","Madagascar","Portugal", "Serbia","Turkey","Ukraine","Venezuela","Vietnam"];
 
 var gameStarted = false;
 var currentWord;
@@ -10,7 +11,7 @@ var lettersGuessed;
 var numWins = 0;
 var numLosses = 0;
 var getNewWord;
-var wordPlace; //place in breeds array
+var wordPlace; //place in countries array
 var correctGuesses;
 var wordAsArr = [];
 var dashesArray = [];
@@ -20,8 +21,8 @@ function initialize() {
 	lettersGuessed = [];
 	correctGuesses = 0;
 	wordPlace = Math.floor(Math.random() * 36);
-	currentWord = breeds[wordPlace];			//string
-	guessesLeft = 17 - currentWord.length;		//longer words get less guesses   // or have a constant number
+	currentWord = countries[wordPlace];			//string
+	guessesLeft = 7;
 	wordAsDashes = makeIntoDashes(currentWord);	//string of dashes
 	wordAsArr = currentWord.split('');			//array with letters
 	dashesArray = wordAsDashes.split('');		//array with dashes
@@ -46,7 +47,7 @@ function makeIntoDashes(word) {
 function playGame(letter) {
 	var letter = letter.toLowerCase();
 
-// Checks if key is a letter //
+	// Checks if key is a letter //
 
 	if (alphabet.indexOf(letter) > -1) {
 		if (wordAsArr.indexOf(letter) > -1) {
@@ -77,7 +78,7 @@ function playGame(letter) {
 
 function displayLetter(letter) {
 
-// For each char in wordAsDashes, if matches currentWord --> display //
+	// For each char in wordAsDashes, if matches currentWord --> display //
 
 	for (i = 0; i < currentWord.length; i++) {
 		if (letter == wordAsArr[i]) {

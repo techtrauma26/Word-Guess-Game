@@ -39,7 +39,7 @@
     top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 20PX;
+    font-size: 30PX;
   }
 
 
@@ -89,4 +89,13 @@ h2{
     font-weight: 400;
     line-height: 1;
     color: seashell;
+}
+
+h1 {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: black ;
+  padding-top: 50px;
+  color: cyan;
+  font-size: 35px;
+
 }
