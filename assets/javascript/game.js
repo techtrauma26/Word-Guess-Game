@@ -1,115 +1,76 @@
+
+
 var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-
-var countries = ["Afghanistan", "Albania","Algeria","Argentina","Armenia","Bahamas","Bangladesh","Belgium","Brazil","Cambodia","Canada","Denmark","Ecuador","Egypt","Finland","France","Germany","Hungary","India","Iran","Japan","Kenya",
-"Laos","Madagascar","Portugal", "Serbia","Turkey","Ukraine","Venezuela","Vietnam"];
-
-var gameStarted = false;
-var currentWord;
-var wordAsDashes;
-var guessesLeft;
-var lettersGuessed;
-var numWins = 0;
-var numLosses = 0;
-var getNewWord;
-var wordPlace; //place in countries array
-var correctGuesses;
-var wordAsArr = [];
+var countries = ["Afghanistan", "Albania", "Algeria", "Argentina", "Armenia", "Bahamas", "Bangladesh", "Belgium", "Brazil", "Cambodia", "Canada", "Denmark", "Ecuador", "Egypt", "Finland", "France", "Germany", "Hungary", "India", "Iran", "Japan", "Kenya",
+"Laos", "Madagascar", "Portugal", "Serbia", "Turkey", "Ukraine", "Venezuela", "Vietnam"];
+var chosenCountry;
+var lostCount = 0;
+var winCount = 0;
+var avaliableGuess = 0;
+var remainingLetters = 0;
 var dashesArray = [];
+var userLettersArray = [];
 
 function initialize() {
-	gameStarted = true;
-	lettersGuessed = [];
-	correctGuesses = 0;
-	wordPlace = Math.floor(Math.random() * 36);
-	currentWord = countries[wordPlace];			//string
-	guessesLeft = 7;
-	wordAsDashes = makeIntoDashes(currentWord);	//string of dashes
-	wordAsArr = currentWord.split('');			//array with letters
-	dashesArray = wordAsDashes.split('');		//array with dashes
-	document.getElementById("currentWord").innerHTML = wordAsDashes;
-	document.getElementById("lettersGuessed").innerHTML = "--";
-	document.getElementById("guessesLeft").innerHTML = guessesLeft;
+	chosenCountry = countries[Math.floor(Math.random() * countries.length)];
+	console.log(chosenCountry);
+	avaliableGuess = 19;
+	remainingLetters = chosenCountry.length;
+	document.getElementById("selectedCountry").innerHTML = makeDashes(chosenCountry);
+	document.getElementById("guessAvaliable").innerHTML = avaliableGuess
+	document.getElementById("wins").innerHTML = winCount;
+	document.getElementById("losses").innerHTML = lostCount;
 }
 
-// Make each word into underscores //
-
-function makeIntoDashes(word) {
+function makeDashes(chosenCountry) {
 	var dashes = "";
-	for (i = 0; i < word.length - 1; i++) {
-		dashes += "_ ";
+	for (i = 0; i < chosenCountry.length - 1; i++) {
+		dashes += " _ ";
 	}
-	dashes += "_";
+
+	for (i = 0; i < chosenCountry.length; i++) {
+		dashesArray[i] = "_";
+	}
+	dashes += " _ ";
 	return dashes;
 }
+function caputureKeyStroke(letter) {
 
-// Main function that controls what to do with each keystroke //
-
-function playGame(letter) {
-	var letter = letter.toLowerCase();
-
-	// Checks if key is a letter //
-
-	if (alphabet.indexOf(letter) > -1) {
-		if (wordAsArr.indexOf(letter) > -1) {
-			correctGuesses++;
-			displayLetter(letter);
-		}
-		else {
-			if (lettersGuessed.indexOf(letter) > -1) {
-				return;
-			}
-			else {
-				guessesLeft--;
-				document.getElementById("guessesLeft").innerHTML = guessesLeft;
-				lettersGuessed.push(letter);
-				document.getElementById("lettersGuessed").innerHTML = lettersGuessed.join(' ');
-				if (guessesLeft == 0) {
-					alert("Sorry! The correct answer is " + currentWord);
-					initialize();
-					numLosses++;
-					document.getElementById("losses").innerHTML = numLosses;
-				}
+	if (alphabet.indexOf(letter.toLowerCase()) > -1) {
+		userLettersArray.push(letter);
+		for (var j = 0; j < chosenCountry.length; j++) {
+			if (chosenCountry[j].toLowerCase() === letter.toLowerCase() && dashesArray[j] === "_") {
+				dashesArray[j] = letter;
+				remainingLetters--;
 			}
 		}
+		avaliableGuess--;
+		document.getElementById("guessAvaliable").innerHTML = avaliableGuess
+		document.getElementById("selectedCountry").innerHTML = dashesArray;
+		document.getElementById("userCharacters").innerHTML = userLettersArray.join(" ");
+	}
+	if (avaliableGuess > 0 && remainingLetters == 0) {
+		winCount++;
+		document.getElementById("wins").innerHTML = winCount;
+		document.getElementById("answer").innerHTML = chosenCountry;
+	}
+	else if (avaliableGuess == 0 && remainingLetters > 0) {
+		lostCount++;
+		document.getElementById("losses").innerHTML = lostCount;
+		document.getElementById("answer").innerHTML = chosenCountry;
 	}
 }
+playAgain = function () {
+	initialize();
+	document.getElementById("answer").innerHTML = "";
+};
 
-// Displays letter if it's in word //
-
-function displayLetter(letter) {
-
-	// For each char in wordAsDashes, if matches currentWord --> display //
-
-	for (i = 0; i < currentWord.length; i++) {
-		if (letter == wordAsArr[i]) {
-			dashesArray[i * 2] = letter;
-			console.log(dashesArray);
-		}
-	}
-	document.getElementById("currentWord").innerHTML = dashesArray.join("");
-	checkForWin();
-}
-
-// Checks for win by looking for "_" //
-
-function checkForWin() {
-	if (dashesArray.indexOf("_") === -1) {
-		alert("You got it! The correct answer is " + currentWord);
-		numWins++;
-		document.getElementById("wins").innerHTML = numWins;
-		initialize();
-	}
-}
+window.onload = function () {
+	initialize();
+};
 
 document.onkeyup = function (event) {
-	if (!gameStarted) {
-		document.getElementById("letsPlay").innerHTML = "";
-		initialize();
-		document.getElementById("currentWord").innerHTML = wordAsDashes.split(",");
-		console.log(currentWord);
-		gameStarted = true;
-	}
-	else {
-		playGame(event.key);
-	}
-}
+	caputureKeyStroke(event.key);
+
+
+};

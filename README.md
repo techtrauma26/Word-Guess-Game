@@ -12,4 +12,4 @@ Technologies Used:
 
 -HTML 
 -Bootstrap 
--JavaScript/JQuery
+-JavaScript/JQueryls
