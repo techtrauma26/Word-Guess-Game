@@ -3,7 +3,7 @@
 var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 var countries = ["Afghanistan", "Albania", "Algeria", "Argentina", "Armenia", "Bahamas", "Bangladesh", "Belgium", "Brazil", "Cambodia", "Canada", "Denmark", "Ecuador", "Egypt", "Finland", "France", "Germany", "Hungary", "India", "Iran", "Japan", "Kenya",
 "Laos", "Madagascar", "Portugal", "Serbia", "Turkey", "Ukraine", "Venezuela", "Vietnam"];
-var chosenCountry;
+var chosenCountry = "";
 var lostCount = 0;
 var winCount = 0;
 var avaliableGuess = 0;
@@ -49,20 +49,24 @@ function caputureKeyStroke(letter) {
 		document.getElementById("selectedCountry").innerHTML = dashesArray;
 		document.getElementById("userCharacters").innerHTML = userLettersArray.join(" ");
 	}
-	if (avaliableGuess > 0 && remainingLetters == 0) {
+	if (avaliableGuess > 0 && remainingLetters === 0) {
 		winCount++;
 		document.getElementById("wins").innerHTML = winCount;
-		document.getElementById("answer").innerHTML = chosenCountry;
+		alert ("You won!!" );
+		playAgain ();
 	}
-	else if (avaliableGuess == 0 && remainingLetters > 0) {
+	else if (avaliableGuess === 0 && remainingLetters > 0) {
 		lostCount++;
 		document.getElementById("losses").innerHTML = lostCount;
-		document.getElementById("answer").innerHTML = chosenCountry;
+		alert ("You lost! The correct answer is " + chosenCountry);
+	playAgain ();
 	}
 }
 playAgain = function () {
 	initialize();
-	document.getElementById("answer").innerHTML = "";
+	// document.getElementById("answer").innerHTML = "";
+document.getElementById("userCharacters").innerHTML = "";
+userLettersArray= [];
 };
 
 window.onload = function () {
